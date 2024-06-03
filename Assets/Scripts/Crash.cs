@@ -1,14 +1,23 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class Crash : MonoBehaviour
 {
-    // Start is called before the first frame update
-   
+
+    [SerializeField] float loadDelay = 1f;
+    [SerializeField] ParticleSystem dieEffect;
   private void OnTriggerEnter2D(Collider2D other) {
     if(other.tag=="Ground"){
-        Debug.Log("PLayer crashed");
+        dieEffect.Play();
+        Invoke("reloadScene", loadDelay);
     }
   }
+
+  void reloadScene(){
+        SceneManager.LoadScene(0);
+  }
+
+
 }
